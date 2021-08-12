@@ -122,12 +122,12 @@ class NacosClient
         $options['headers']['spas-signature'] = 'signature';
 
         $client = new Client([
-            'base_uri' => "http://{$this->host}:{$this->port}{$this->contextPath}",
+            'base_uri' => "http://{$this->host}:{$this->port}",
             'timeout' => $this->timeout
         ]);
 
         try {
-            $resp = $client->request($method, $uri, $options);
+            $resp = $client->request($method, $this->contextPath.$uri, $options);
         } catch (ConnectException $connectException) {
             throw new NacosConnectionException("[Nacos Server] " . $connectException->getMessage());
         } catch (RequestException $exception) {
